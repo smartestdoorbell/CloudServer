@@ -80,6 +80,6 @@ app.post("/message", (req, res) => {
   res.send(`sent Received message, ${req.body.message}`);
 });
 
-app.listen(PORT_NUMBER, () => {
+app.listen(process.env.PORT || PORT_NUMBER, () => {
   console.log(`Server Online on Port ${PORT_NUMBER}`);
 });
