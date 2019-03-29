@@ -6,7 +6,7 @@ const db = new Sequelize(dbUrl, {
   logging: false
 });
 
-const User = db.define("users", {
+const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
     validate: {
@@ -21,7 +21,7 @@ const User = db.define("users", {
   }
 });
 
-const Ring = db.define("rings", {
+const Ring = db.define("ring", {
   eventTime: {
     type: Sequelize.DATE,
     allowNull: false

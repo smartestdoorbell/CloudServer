@@ -1,6 +1,6 @@
 import express from "express";
 import Expo from "expo-server-sdk";
-const { User, Ring } = require("./database/db");
+const { User, Ring, db } = require("./database/db");
 const Fs = require("fs");
 const Path = require("path");
 const Axios = require("axios");
@@ -97,6 +97,15 @@ app.get("/", (req, res) => {
   res.send("Push Notification Server Running");
 });
 
+app.post("/test", (req, res) => {
+  console.log("hit here");
+  User.create({
+    email: "this@email.com",
+    password: "homer",
+    googleId: "donnyboy"
+  }).then(res.send("successfully added"));
+});
+
 app.post("/token", (req, res) => {
   saveToken(req.body.token.value);
   console.log(`Received push token, ${req.body.token.value}`);
@@ -104,11 +113,15 @@ app.post("/token", (req, res) => {
 });
 
 app.post("/message", async (req, res) => {
-  await Ring.create({
-    eventTime: Date.now(),
-    imageUrl: req.data.imageUrl
-  });
-  console.log("db added");
+  try {
+    await Ring.create({
+      eventTime: Date.now()
+    });
+    console.log("db added");
+  } catch (error) {
+    console.log(error);
+  }
+
   await handlePushTokens(req.body.message);
   console.log(`console Received message, ${req.body.message}`);
   //grab picture from camera and save to db HERE *****
@@ -119,6 +132,9 @@ app.post("/message", async (req, res) => {
   res.send(`sent Received message, ${req.body.message}`);
 });
 
-app.listen(process.env.PORT || PORT_NUMBER, () => {
-  console.log(`Server Online on Port ${PORT_NUMBER}`);
+db.sync().then(() => {
+  console.log("The database is synced!");
+  app.listen(process.env.PORT || PORT_NUMBER, () => {
+    console.log(`Server Online on Port ${PORT_NUMBER}`);
+  });
 });
