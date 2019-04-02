@@ -113,7 +113,7 @@ app.post("/message", async (req, res) => {
 
   try {
     await Ring.create({
-      eventTime: Date.now(),
+      eventTime: timeStampFromCam,
       imageUrl: DropURL
     });
     console.log("db added");

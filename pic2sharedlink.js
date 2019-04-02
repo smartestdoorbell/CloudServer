@@ -1,10 +1,14 @@
 "use strict";
 
 const Axios = require("axios");
-//const keys = require("./secrets.js");
+
 const Path = require("path");
-//const { dropboxToken } = keys;
+
 const dropboxToken = process.env.dropboxToken;
+
+// const keys = require("./secrets.js");
+// const { dropboxToken } = keys;
+
 require("isomorphic-fetch");
 const Dropbox = require("dropbox").Dropbox;
 const fs = require("fs");
