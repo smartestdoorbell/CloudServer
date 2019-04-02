@@ -3,7 +3,8 @@
 const Axios = require("axios");
 const keys = require("./secrets.js");
 const Path = require("path");
-const { dropboxToken } = keys;
+//const { dropboxToken } = keys;
+const dropboxToken = process.env.dropboxToken;
 require("isomorphic-fetch");
 const Dropbox = require("dropbox").Dropbox;
 const fs = require("fs");
@@ -74,9 +75,6 @@ async function downloadImage(url, name) {
     writer.on("error", reject);
   });
 }
-
-let url = "http://192.168.1.202:8080?action=snapshot";
-let name = Date.now();
 
 const mainThread = async (url, name) => {
   await downloadImage(url, name);
