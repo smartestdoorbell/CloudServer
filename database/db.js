@@ -23,7 +23,7 @@ const User = db.define("user", {
 
 const Ring = db.define("ring", {
   eventTime: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false
   },
   imageUrl: {

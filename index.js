@@ -100,7 +100,7 @@ app.post("/message", async (req, res) => {
     return url;
   };
 
-  const timeStampFromCam = req.body.message.toString();
+  const timeStampFromCam = req.body.message;
 
   //const url = "http://192.168.1.202:8080?action=snapshot";
 
