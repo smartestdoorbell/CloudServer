@@ -107,9 +107,14 @@ app.post("/message", async (req, res) => {
   const url = "http://crucio.serveo.net/?action=snapshot";
 
   //grab picture from camera and save to db HERE *****
-  let DropURL = await grabSnapShoturl(url, timeStampFromCam);
-  DropURL = linkFix(DropURL);
-  console.log(DropURL);
+  try {
+    let DropURL = await grabSnapShoturl(url, timeStampFromCam);
+    DropURL = linkFix(DropURL);
+    console.log(DropURL);
+  } catch (error) {
+    console.log("we had an error with dropbox or pi");
+    let DropURL = "not available";
+  }
 
   try {
     await Ring.create({
