@@ -113,7 +113,8 @@ app.post("/message", async (req, res) => {
     console.log(DropURL);
   } catch (error) {
     console.log("we had an error with dropbox or pi");
-    DropURL = "not available";
+    DropURL =
+      "https://sdmg.com/wp-content/uploads/2017/04/picture-not-available.jpg";
   }
 
   try {
