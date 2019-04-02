@@ -85,6 +85,6 @@ const mainThread = async (url, name) => {
   return sharedlink;
 };
 
-mainThread(url, name);
+//mainThread(url, name);
 
 module.exports = mainThread;
