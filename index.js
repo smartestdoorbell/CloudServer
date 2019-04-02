@@ -105,15 +105,15 @@ app.post("/message", async (req, res) => {
   //const url = "http://192.168.1.202:8080?action=snapshot";
 
   const url = "http://crucio.serveo.net/?action=snapshot";
-
+  let DropURL;
   //grab picture from camera and save to db HERE *****
   try {
-    let DropURL = await grabSnapShoturl(url, timeStampFromCam);
+    DropURL = await grabSnapShoturl(url, timeStampFromCam);
     DropURL = linkFix(DropURL);
     console.log(DropURL);
   } catch (error) {
     console.log("we had an error with dropbox or pi");
-    let DropURL = "not available";
+    DropURL = "not available";
   }
 
   try {
