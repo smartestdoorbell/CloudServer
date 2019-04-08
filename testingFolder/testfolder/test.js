@@ -2,62 +2,13 @@
 
 const Fs = require("fs");
 const Path = require("path");
-const Axios = require("axios");
-const keys = require("../secrets.js");
-require("isomorphic-fetch");
+const axios = require("axios");
 
-const { dropboxToken } = keys;
-
-var Dropbox = require("dropbox").Dropbox;
-
-var dbx = new Dropbox({ accessToken: dropboxToken });
-
-//view content of dropbox
-// dbx
-//   .filesListFolder({ path: "/images/" })
-//   .then(function(response) {
-//     console.log(response.entries);
-//   })
-//   .catch(function(error) {
-//     console.log(error);
-//   });
-
-// File is smaller than 150 Mb - use filesUpload API
-
-function dropboxsendoff(file) {
-  dbx
-    .filesUpload({ path: "/testfolder/" + "code.jpg", contents: file })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.error(error);
-    });
+async function getd() {
+  let histdata = await axios.get(
+    "https://pidoorbellserver.herokuapp.com/api/picurls"
+  );
+  console.log(histdata.data);
 }
 
-async function downloadImage() {
-  const url = "http://192.168.1.190:8080?action=snapshot";
-  const path = Path.resolve("code.jpg");
-  const writer = Fs.createWriteStream(path);
-
-  const response = await Axios({
-    url,
-    method: "GET",
-    responseType: "stream"
-  });
-
-  await response.data.pipe(writer);
-
-  await writer.on("finish", () => {
-    //dropboxsendoff(writer);
-  });
-
-  return new Promise((resolve, reject) => {
-    writer.on("finish", resolve);
-    writer.on("error", reject);
-  });
-}
-
-downloadImage();
-
-// const file = new Date.now();
+getd();
